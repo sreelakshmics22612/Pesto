@@ -4,15 +4,15 @@
 
 if(isset($_POST['submit'])){
 
-   $filter_name = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
+   $filter_name = htmlspecialchars($_POST['name'] ?? '', ENT_QUOTES, 'UTF-8');
    $name = mysqli_real_escape_string($conn, $filter_name);
-   $filter_email = filter_var($_POST['email'], FILTER_SANITIZE_STRING);
+   $filter_email = filter_var($_POST['email'] ?? '', FILTER_SANITIZE_EMAIL);
    $email = mysqli_real_escape_string($conn, $filter_email);
-   $filter_pass = filter_var($_POST['pass'], FILTER_SANITIZE_STRING);
-   $pass = mysqli_real_escape_string($conn, md5($filter_pass));
-   $filter_cpass = filter_var($_POST['cpass'], FILTER_SANITIZE_STRING);
-   $cpass = mysqli_real_escape_string($conn, md5($filter_cpass));
+  $filter_pass = $_POST['pass'] ?? '';
+   $filter_cpass = $_POST['cpass'] ?? '';
 
+   $pass = mysqli_real_escape_string($conn, md5($filter_pass));
+   $cpass = mysqli_real_escape_string($conn, md5($filter_cpass));
    $select_users = mysqli_query($conn, "SELECT * FROM `users` WHERE email = '$email'") or die('query failed');
 
    if(mysqli_num_rows($select_users) > 0){

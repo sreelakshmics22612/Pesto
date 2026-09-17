@@ -1,5 +1,6 @@
 <?php
 
-$conn = mysqli_connect('localhost','root','','fol_db') or die('connection failed');
+$conn = mysqli_connect('db', 'root', 'rootpassword', 'fol_db')
+    or die('connection failed');
 
 ?>
